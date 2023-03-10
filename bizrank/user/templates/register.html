@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% block start %}
+
+<div class="content-section col-md-8 col-md-offset-2">
+  <center>
+  <form method="POST" action= "" style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;">
+    {% csrf_token %}
+    <h1> SIGN UP HERE </h1>
+    <br/>
+    <fieldset class="form-group">
+      <input type="text" class="form-control" name="firstname" placeholder="First Name" required>
+      <br/>
+      <input type="text" class="form-control" name="lastname" placeholder="Last Name" required>
+      <br/>
+      {% comment %} <input type="text" class="form-control" name="username" placeholder="Username" required> {% endcomment %}
+      <br/>
+      <input type="text" class="form-control" name="phone" placeholder="Mobile number" required>
+      <br/>
+      <input type="email" class="form-control" name="email" placeholder="Email" required>
+      <br/>
+      <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
+      <br/>
+      {% comment %} <input type="password" class="form-control" name="password2" placeholder="Confirm Password" required> {% endcomment %}
+      <br/>
+    </fieldset>
+    <button style="background: black; padding:1%; font-size: 1.5rem; color:white;" class="btn btn-outline-info" type="submit"><span class="glyphicon glyphicon-check"></span> &nbsp;Sign up</button>
+    <br/>
+    <sub><a href="{% url "login_user" %}" style="text-decoration: none; padding:3%; cursor:pointer;">Already have an account? login_user</a></sub>
+  </center>
+
+  </form>
+</div>
+{% endblock start %}
