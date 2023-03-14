@@ -21,13 +21,15 @@ from django.contrib.auth import views as auth
 from . import views
 
 urlpatterns = [
-    path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
+    # path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
     # Project URLs
     path('aboutus/', views.about_us, name='aboutus'),
     path('admin/', admin.site.urls),
     path('brands/', include('brands.urls')),
     path('user/', include('user.urls')),
     path('products/', include('products.urls')),
+    # path('contactus/', views.contact_us, name='contactus'),
+    # path('rate/', include('rating.urls')),
 
     path('login_user/', user_view.login_user, name ='login_user'),
     path('logout/', auth.LogoutView.as_view(template_name ='index.html'), name ='logout'),

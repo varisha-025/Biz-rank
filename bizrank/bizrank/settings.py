@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,12 +41,11 @@ INSTALLED_APPS = [
     'brands.apps.BrandsConfig',
     'user.apps.UserConfig',
     'products.apps.ProductsConfig',
+    'rating.apps.RatingConfig',
     # 'cripsy_forms',
-    'corsheaders',
-    'oauth2_provider',
-    'social_django',
-    'drf_social_oauth2',
 ]
+
+AUTH_USER_MODEL = "user.User"
 
 
 REST_FRAMEWORK = {
@@ -83,8 +81,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
             ],
         },
     },

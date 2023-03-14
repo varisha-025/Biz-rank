@@ -1,12 +1,12 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .forms import BrandRegisterForm
-from .models import Brand, BrandOwnership
+from django.shortcuts import redirect, render
+from rating.models import Rating
 from user.models import User
 
-
+from .forms import BrandRegisterForm
+from .models import Brand, BrandOwnership
 
 
 def get_all_brands():
@@ -27,7 +27,7 @@ def create_brand_ownership(user, brand):
     brand_ownership = BrandOwnership.objects.create(user=user, brand=brand)
     brand_ownership.save()
 
-
+@login_required
 def create_brand(request):
     if request.method == 'POST':
         form = BrandRegisterForm(request.POST)
@@ -43,7 +43,7 @@ def create_brand(request):
 
     return render(request, 'add_brand.html')
 
-
+@login_required
 def delete_brand(request):
     if request.method == 'POST':
         brand_id = request.POST.get('brand_id')
@@ -58,7 +58,7 @@ def delete_brand(request):
     return render(request, 'delete_brand.html')
 
 
-
+@login_required
 def detail(request, brand_id):
     try:
         brand = Brand.objects.get(id=brand_id)
@@ -69,3 +69,23 @@ def detail(request, brand_id):
         return render(request, 'brand_detail.html', context)
     except:
         return HttpResponse("Brand does not exist.")
+    
+
+@login_required
+def rate_brand(request):
+    if request.method == 'POST':
+        brand_id = request.POST.get('brand_id')
+        user_id = request.user.id
+        user = User.objects.get(id=user_id)
+        rating = request.POST.get('rating')
+        brand = Brand.objects.get(id=brand_id)
+
+        try:
+            rate = Rating.objects.create(user=user, brand=brand, rating=rating)
+            rate.save()
+            messages.success(request, f'Your rating has been saved.')
+        except:
+            messages.error(request, f'Some error occured. Please try again later.')     
+
+    
+    return render(request, 'delete_brand.html')
